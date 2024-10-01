@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: .
+    container_name: redisplay-frontend-dev
+    ports:
+      - "3000:3000" # React 开发服务器默认运行在3000端口
+    volumes:
+      - .:/app # 挂载本地代码到容器
+      - /app/node_modules # 防止覆盖容器内的node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true # 解决文件监控问题，特别是在某些操作系统上
+    networks:
+      - redisplay-network
+
+networks:
+  redisplay-network:
+    driver: bridge
