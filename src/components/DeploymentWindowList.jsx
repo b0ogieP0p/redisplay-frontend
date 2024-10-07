@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { List, Button, Popconfirm, message, Modal } from 'antd';
+import { List, Button, Popconfirm, message } from 'antd';
+import { useNavigate } from 'react-router-dom'; // 引入 useNavigate
 import { getDeploymentWindows, deleteDeploymentWindow } from '../services/api';
-import DeploymentWindowDetails from './DeploymentWindowDetails';
 import AddDeploymentWindowForm from './AddDeploymentWindowForm';
 
 const DeploymentWindowList = () => {
   const [windows, setWindows] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isAddModalVisible, setIsAddModalVisible] = useState(false);
-  const [selectedWindow, setSelectedWindow] = useState(null);
+  const navigate = useNavigate(); // 使用 useNavigate 进行导航
 
   const fetchDeploymentWindows = async () => {
     setLoading(true);
@@ -44,27 +44,23 @@ const DeploymentWindowList = () => {
     }
   };
 
-  const handleOpenDetails = (window) => {
-    setSelectedWindow(window);
-  };
-
-  const handleCloseDetails = () => {
-    setSelectedWindow(null);
+  const handleViewDetails = (id) => {
+    navigate(`/windows/${id}`); // 跳转到详情页面
   };
 
   return (
     <div>
-      <Button type="primary" onClick={handleAdd} style={{ marginBottom: 16 }}>
-        新建上线窗口
+      <Button type="primary" onClick={handleAdd} style={{ margin: '20px auto'}}>
+        create window
       </Button>
       <List
         bordered
         loading={loading}
         dataSource={windows}
-        renderItem={item => (
+        renderItem={(item) => (
           <List.Item
             actions={[
-              <Button type="link" onClick={() => handleOpenDetails(item)}>查看详情</Button>,
+              <Button type="link" onClick={() => handleViewDetails(item.id)}>查看详情</Button>,
               <Popconfirm
                 title="确定删除此上线窗口吗？"
                 onConfirm={() => handleDelete(item.id)}
@@ -72,7 +68,7 @@ const DeploymentWindowList = () => {
                 cancelText="否"
               >
                 <Button type="link" danger>删除</Button>
-              </Popconfirm>
+              </Popconfirm>,
             ]}
           >
             {item.name} (创建时间: {new Date(item.createdAt).toLocaleString()})
@@ -84,15 +80,6 @@ const DeploymentWindowList = () => {
         onClose={() => setIsAddModalVisible(false)}
         onSuccess={handleAddSuccess}
       />
-      <Modal
-        title={`上线窗口详情: ${selectedWindow ? selectedWindow.name : ''}`}
-        visible={!!selectedWindow}
-        onCancel={handleCloseDetails}
-        footer={null}
-        width={800}
-      >
-        {selectedWindow && <DeploymentWindowDetails window={selectedWindow} />}
-      </Modal>
     </div>
   );
 };

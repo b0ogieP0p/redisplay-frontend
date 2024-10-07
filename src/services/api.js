@@ -18,3 +18,5 @@ export const addService = (windowId, serviceData) => axios.post(`${API_BASE_URL}
 export const deleteService = (windowId, serviceId) => axios.delete(`${API_BASE_URL}/deployment-windows/${windowId}/services/${serviceId}`);
 
 export const updateService = (windowId, serviceId, serviceData) => axios.put(`${API_BASE_URL}/deployment-windows/${windowId}/services/${serviceId}`, serviceData);
+
+export const getDeploymentWindow = (id) => axios.get(`${API_BASE_URL}/deployment-windows/${id}`);

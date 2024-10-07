@@ -1,0 +1,37 @@
+/* App.css */
+.ant-layout-header {
+    background-color: #04427c !important; /* 确保设置了 Header 背景颜色 */
+    padding: 0;
+    height: 64px;
+  }
+
+.custom-menu {
+    background-color: #289877;
+    height: 64px; /* 确保与 Header 的高度一致 */
+    line-height: 64px; /* 确保菜单项垂直居中 */
+  }
+  
+  .custom-menu .ant-menu-item,
+  .custom-menu .ant-menu-item a {
+    color: #fff;
+  }
+  
+  .custom-menu .ant-menu-item:hover,
+  .custom-menu .ant-menu-item-active,
+  .custom-menu .ant-menu-item-open,
+  .custom-menu .ant-menu-item-selected {
+    background-color: #174469;
+  }
+  
+  .custom-menu .ant-menu-item-selected a {
+    color: #fff;
+  }
+  
+  /* 确保内容区域的正确 padding */
+  .site-layout-content {
+    padding: 24px;
+    background: #fff;
+    min-height: 280px;
+    margin-top: 16px; /* 确保内容区域不会与菜单重叠 */
+  }
+  

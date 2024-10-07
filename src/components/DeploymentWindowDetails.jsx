@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Button, message, Space } from 'antd';
+import { Button, message } from 'antd';
+import { getServices } from '../services/api';
 import ServiceList from './ServiceList';
 import AddServiceForm from './AddServiceForm';
 import EditServiceForm from './EditServiceForm';
-import { getServices } from '../services/api';
 
 const DeploymentWindowDetails = ({ window }) => {
   const [services, setServices] = useState([]);
@@ -48,11 +48,9 @@ const DeploymentWindowDetails = ({ window }) => {
 
   return (
     <div>
-      <Space style={{ marginBottom: 16 }}>
-        <Button type="primary" onClick={handleAddService}>
-          添加服务
-        </Button>
-      </Space>
+      <Button type="primary" onClick={handleAddService} style={{ marginBottom: 16 }}>
+        添加服务
+      </Button>
       <ServiceList
         services={services}
         loading={loading}
